@@ -7,7 +7,7 @@ import './autoform-inputmask.html';
 
 AutoForm.addInputType('inputmask', {
     template: 'ksrvInputmask',
-    valueOut: function() {
+    valueOut () {
         if (this.data('clean')) {
             return this.inputmask('unmaskedvalue');
         } else if (this.data('date-format')) {
@@ -15,6 +15,15 @@ AutoForm.addInputType('inputmask', {
         } else {
             return this.val();  
         }
+    },
+
+    contextAdjust (context) {
+        let atts = context.atts || {};
+        let maskOptions = atts.maskOptions || {};
+        if (maskOptions.dateFormat) {
+            context.value = moment(context.value).format(maskOptions.dateFormat);
+        }
+        return context;
     }
 });
 
