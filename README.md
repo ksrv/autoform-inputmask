@@ -26,4 +26,22 @@ $ meteor add ksrv:autoform-inputmask
         }
     }
 }
-``` 
+```
+
+Set date format
+
+```js
+{
+    birthday: {
+        type: Date,
+        autoform: {
+            type: 'inputmask',
+            mask: 'dd.mm.yyyy',
+            maskOptions: {
+                dateFormat: 'DD.MM.YYYY', // momentjs format
+                placeholder: 'dd.mm.yyyy'
+            }
+        }
+    }
+}
+```
