@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ksrv:autoform-inputmask',
-  version: '0.0.2',
+  version: '0.0.3',
   summary: 'Meteor autoform field with inputmask.',
   git: 'https://github.com/ksrv/autoform-inputmask.git',
   documentation: 'README.md'
