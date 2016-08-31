@@ -8,21 +8,32 @@ import './autoform-inputmask.html';
 AutoForm.addInputType('inputmask', {
     template: 'ksrvInputmask',
     valueOut () {
-        if (this.data('clean')) {
+        let value = this.val();
+        if ( this.data('clean') ) {
             return this.inputmask('unmaskedvalue');
-        } else if (this.data('date-format')) {
-            return moment(this.val(), this.data('date-format')).toDate();
+        } else if ( value && this.data('date-format') ) {
+            return moment(value, this.data('date-format')).toDate();
         } else {
-            return this.val();  
+            return value;  
         }
     },
 
     contextAdjust (context) {
         let atts = context.atts || {};
         let maskOptions = atts.maskOptions || {};
+
         if (maskOptions.dateFormat) {
             context.value = moment(context.value).format(maskOptions.dateFormat);
+            // Do not clean mask if use dateFormat
+            delete context.atts.maskOptions.clean;
         }
+
+        // Use HTML attribute "placeholder"
+        if (maskOptions.placeholder) {
+            context.atts.placeholder = maskOptions.placeholder;
+            delete maskOptions.placeholder;
+        }
+
         return context;
     }
 });
